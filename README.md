@@ -1,3 +1,6 @@
+In this fork, everything is the same. The only difference is that we filter based on loreline as to wether to stack and silk touch, or not. This allows a mix of Virtual Spawners and real spawners to coexist, managed by differentr plugins.
+
+
 ![](https://imgur.com/3ADh05A.png)
 
 
