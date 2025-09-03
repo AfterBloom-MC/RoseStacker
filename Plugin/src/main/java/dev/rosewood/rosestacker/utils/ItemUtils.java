@@ -353,6 +353,22 @@ public final class ItemUtils {
             return CompatibilityAdapter.getCreatureSpawnerHandler().getSpawnedType(creatureSpawner);
         }
 
+        // Check if the spawner should be ignored based on lore strings
+        List<String> ignoreLoreStrings = SettingKey.SPAWNER_IGNORE_LORE_STRINGS.get();
+        if (!ignoreLoreStrings.isEmpty() && itemMeta.hasLore()) {
+            List<String> lore = itemMeta.getLore();
+            if (lore != null) {
+                for (String line : lore) {
+                    String strippedLine = ChatColor.stripColor(line);
+                    for (String ignoreString : ignoreLoreStrings) {
+                        if (strippedLine.contains(ignoreString)) {
+                            return null; // Ignore this spawner
+                        }
+                    }
+                }
+            }
+        }
+
         // Try formats from other plugins/servers
 
         // Purpur servers
