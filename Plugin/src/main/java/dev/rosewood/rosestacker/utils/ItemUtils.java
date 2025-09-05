@@ -353,6 +353,24 @@ public final class ItemUtils {
             return CompatibilityAdapter.getCreatureSpawnerHandler().getSpawnedType(creatureSpawner);
         }
 
+        // Little debug for lore lines, if it's on in spawner_settings.yml
+        boolean spawnerLoreDebugMode = SettingKey.SPAWNER_SHOW_LORELINE_DEBUG.get();
+        if (spawnerLoreDebugMode) {
+            if (itemMeta.hasLore()) {
+                List<String> lore = itemMeta.getLore();
+                if (lore != null) {
+                    RoseStacker.getInstance().getLogger().info("Spawner lore dump:");
+                    for (String line : lore) {
+                        RoseStacker.getInstance().getLogger().info("RAW: " + line);
+                        RoseStacker.getInstance().getLogger().info("STRIPPED: " + ChatColor.stripColor(line));
+                    }
+                }
+            } else {
+                RoseStacker.getInstance().getLogger().info("No lore found on this item.");
+            }
+        }
+
+
         // Check if the spawner should be ignored based on lore strings
         List<String> ignoreLoreStrings = SettingKey.SPAWNER_IGNORE_LORE_STRINGS.get();
         if (!ignoreLoreStrings.isEmpty() && itemMeta.hasLore()) {
