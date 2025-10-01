@@ -296,6 +296,16 @@ public class StackManager extends Manager implements StackingLogic {
 
     @Override
     public StackedSpawner createSpawnerStack(Block block, int amount, boolean placedByPlayer) {
+        // Check if this block is a virtual spawner first
+        Optional<IVirtualSpawner> virtualSpawner = VirtualSpawnerAPI.getSpawner(block.getLocation());
+
+        if (virtualSpawner.isPresent()) {
+            // This is a virtual spawner - don't create a regular stack
+            // Virtual spawners handle their own stacking internally
+            return null;
+        }
+
+        // This is a regular spawner, proceed with normal stacking logic
         StackingThread stackingThread = this.getStackingThread(block.getWorld());
         if (stackingThread == null)
             return null;

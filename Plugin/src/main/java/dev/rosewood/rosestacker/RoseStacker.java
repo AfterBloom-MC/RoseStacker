@@ -1,4 +1,4 @@
-package dev.rosewood.rosestacker;
+|package dev.rosewood.rosestacker;
 
 import dev.rosewood.rosegarden.RosePlugin;
 import dev.rosewood.rosegarden.config.SettingHolder;
